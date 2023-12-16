@@ -2,6 +2,7 @@ __pycache__
 
 venv/
 tests/
+dist/
 
 .DS_Store
 .env
@@ -10,3 +11,4 @@ tests/
 test.py
 
 *.code-workspace
+*.egg-info/
