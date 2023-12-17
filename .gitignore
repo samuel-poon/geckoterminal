@@ -3,6 +3,7 @@ __pycache__
 venv/
 tests/
 dist/
+build/
 
 .DS_Store
 .env
