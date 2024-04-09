@@ -111,3 +111,12 @@ def get_pool_ohlcv(
         return pd.DataFrame(ohlcv_list, columns=config.OHLCV_COLUMNS)
 
     return response
+
+def get_trades(network, pool_address, trade_volume_in_usd_greater_than=0):
+    # Returns last 300 trades in past 24 hours from pool
+    
+    params = {
+        'trade_volume_in_usd_greater_than':trade_volume_in_usd_greater_than
+    }
+
+    return client.request(f'/networks/{network}/pools/{pool_address}/trades', params=params)
