@@ -4,7 +4,7 @@ Python wrapper for GeckoTerminal's API.
 
 ## Installation
 ```
-pip3 install git+https://github.com/samuel-poon/geckoterminal.git
+pip3 install geckoterminal
 ```
 
 ## GeckoTerminal Docs
