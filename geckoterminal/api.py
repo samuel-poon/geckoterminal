@@ -3,6 +3,9 @@ import pandas as pd
 from .client import client
 from . import config
 
+def get_prices(network, token_addresses):
+    return client.request(f'/simple/networks/{network}/token_price/{",".join(token_addresses)}')
+
 def get_networks(page=1):
     params = {
         'page':page
