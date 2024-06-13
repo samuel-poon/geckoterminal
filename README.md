@@ -73,7 +73,7 @@ polygon_top_pools = geckoterminal.get_top_pools(
 
 ### Get top pools on a DEX by network
 ```python
-blaster_thruster_top_pools = geckoterminal.get_top_pools(
+blast_thruster_top_pools = geckoterminal.get_top_pools(
     network='blast',
     dex='thruster-v3', # Get id through geckoterminal.get_dexes(),
     include=['base_token', 'quote_token', 'dex']
