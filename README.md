@@ -1,6 +1,6 @@
 # GeckoTerminal
 
-Python wrapper for GeckoTerminal's API.
+Python wrapper for GeckoTerminal's API. Access DEX data across >100 networks through an easy-to-use library.
 
 ## Installation
 ```
@@ -14,8 +14,16 @@ https://www.geckoterminal.com/dex-api
 ## Quick Start
 ```python
 import geckoterminal
+```
 
-networks = geckoterminal.get_networks()
+### Get networks
+```python
+networks = geckoterminal.get_networks(page=1)
+```
+
+### Get prices
+Supports up to 30 token addressses.
+```python
 prices = geckoterminal.get_prices(
     network='eth',
     token_addresses=[
@@ -24,12 +32,59 @@ prices = geckoterminal.get_prices(
         '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', # WETH
     ]    
 )
-dexes = geckoterminal.get_dexes(network='eth')
-weth_usdc = geckoterminal.get_pool(network='eth', pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640') # WETH/USDC Uniswap v3 0.05%
-polygon_top_pools = geckoterminal.get_top_pools(network='polygon_pos')
+```
+
+### Get DEXes
+```python
+dexes = geckoterminal.get_dexes(
+    network='eth',
+    page=1
+)
+```
+
+### Get pool
+```python
+weth_usdc = geckoterminal.get_pool(
+    network='eth',
+    pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640', # WETH/USDC Uniswap v3 0.05%
+    include=['base_token', 'quote_token', 'dex']
+)
+```
+
+### Get multiple pools
+```python
+solana_pools = geckoterminal.get_pools(
+    network='solana',
+    pool_addresses=[
+        'FpCMFDFGYotvufJ7HrFHsWEiiQCGbkLCtwHiDnh7o28Q', # SOL/USDC Orca
+        '3ne4mWqdYuNiYrYZC9TrA3FcfuFdErghH97vNPbjicr1', # BONK/SOL Orca
+        'EP2ib6dYdEeqD8MfE2ezHCxX3kP3K2eLKkirfPm5eyMx', # $WIF/SOL Raydium
+    ]
+)
+```
+
+### Get top pools on a network
+```python
+polygon_top_pools = geckoterminal.get_top_pools(
+    network='polygon_pos',
+    include=['base_token', 'quote_token', 'dex']
+)
+```
+
+### Get top pools on a DEX by network
+```python
+blaster_thruster_top_pools = geckoterminal.get_top_pools(
+    network='blast',
+    dex='thruster-v3', # Get id through geckoterminal.get_dexes(),
+    include=['base_token', 'quote_token', 'dex']
+)
+```
+
+### Get trades
+```python
 weth_usdc_trades = geckoterminal.get_trades(
     network='eth',
-    pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
+    pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640', # WETH/USDC Uniswap v3 0.05%
     trade_volume_in_usd_greater_than=10000
 )
 ```
