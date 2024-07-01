@@ -80,6 +80,23 @@ blast_thruster_top_pools = geckoterminal.get_top_pools(
 )
 ```
 
+### Get new pools
+```python
+new_pools = geckoterminal.get_new_pools(
+    network=None, # If None, returns latest pools from all networks.
+    include=['base_token', 'quote_token', 'dex']
+)
+```
+
+### Get token
+```python
+weth = geckoterminal.get_token(
+    network='eth',
+    token_address='0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', # WETH
+    include=['top_pools']
+)
+```
+
 ### Get trades
 ```python
 weth_usdc_trades = geckoterminal.get_trades(
