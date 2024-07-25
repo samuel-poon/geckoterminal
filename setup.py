@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name='geckoterminal',
-    version='0.0.5',
+    version='0.0.6',
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires=">=3.6",
