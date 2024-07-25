@@ -51,6 +51,13 @@ weth_usdc = geckoterminal.get_pool(
 )
 ```
 
+### Get pool info
+```python
+weth_usdc_info = geckoterminal.get_pool_info(
+    network='eth',
+    pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640', # WETH/USDC Uniswap v3 0.05%
+)
+```
 ### Get multiple pools
 ```python
 solana_pools = geckoterminal.get_pools(
@@ -67,7 +74,8 @@ solana_pools = geckoterminal.get_pools(
 ```python
 polygon_top_pools = geckoterminal.get_top_pools(
     network='polygon_pos',
-    include=['base_token', 'quote_token', 'dex']
+    include=['base_token', 'quote_token', 'dex'],
+    page=1,
 )
 ```
 
@@ -88,6 +96,16 @@ new_pools = geckoterminal.get_new_pools(
 )
 ```
 
+### Search pools
+```python
+pools_with_cat = geckoterminal.search_pools(
+    query='cat',
+    network=None, # If None, searches all networks
+    include=['base_token', 'quote_token', 'dex'],
+    page=1
+)
+```
+
 ### Get token
 ```python
 weth = geckoterminal.get_token(
@@ -103,5 +121,21 @@ weth_usdc_trades = geckoterminal.get_trades(
     network='eth',
     pool_address='0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640', # WETH/USDC Uniswap v3 0.05%
     trade_volume_in_usd_greater_than=10000
+)
+```
+
+### Get pool OHLCV
+Gets OHLCV data up to 6 months ago. 
+```python
+wbtc_weth_ohlcv = geckoterminal.get_pool_ohlcv(
+    network='eth',
+    pool_address='0xcbcdf9626bc03e24f779434178a73a0b4bad62ed', # WBTC/WETH Uniswap v3
+    timeframe='day', # One of day, hour, or minute
+    aggregate=1,
+    before_timestamp=None, # Unix timestamp in seconds
+    limit=100, # Default 100, max is 1000
+    currency='usd', # One of usd or token
+    token='base', # One of base, quote, or a specific token address
+    df=True # Returns a 
 )
 ```

@@ -34,16 +34,25 @@ def get_pools(network, pool_addresses, include=['base_token', 'quote_token', 'de
 
     return client.request(f'/networks/{network}/pools/multi/{",".join(pool_addresses)}', params=params)
 
+def get_trending_pools(network=None, include=['base_token', 'quote_token', 'dex'], page=1):
+    params = {
+        'include':','.join(include),
+        'page':page
+    }
+
+    endpoint = f'/networks/{network}/trending_pools' if network else f'/networks/trending_pools'
+
+    return client.request(endpoint, params=params)
+
 def get_top_pools(network, dex=None, include=['base_token', 'quote_token', 'dex'], page=1):
     params = {
         'include':','.join(include),
         'page':page
     }
 
-    if dex:
-        return client.request(f'/networks/{network}/dexes/{dex}/pools', params=params)
-    else:
-        return client.request(f'/networks/{network}/pools', params=params)
+    endpoint = f'/networks/{network}/dexes/{dex}/pools' if dex else f'/networks/{network}/pools'
+    
+    return client.request(endpoint, params=params)
 
 def get_new_pools(network=None, include=['base_token', 'quote_token', 'dex']):
     """
@@ -54,6 +63,16 @@ def get_new_pools(network=None, include=['base_token', 'quote_token', 'dex']):
     }
 
     return client.request(f'/networks{"/" + network if network else ""}/new_pools', params=params)
+
+def search_pools(query, network=None, include=['base_token', 'quote_token', 'dex'], page=1):
+    params = {
+        'query':query,
+        'network':network,
+        'include':','.join(include),
+        'page':page
+    }
+
+    return client.request('/search/pools', params=params)
 
 def get_token(network, token_address, include=['top_pools']):
     params = {
@@ -111,8 +130,11 @@ def get_pool_ohlcv(
     response = client.request(f'/networks/{network}/pools/{pool_address}/ohlcv/{timeframe}', params=params)
 
     if df:
-        ohlcv_list = response['data']['attributes']['ohlcv_list']
-        return pd.DataFrame(ohlcv_list, columns=config.OHLCV_COLUMNS)
+        try:
+            ohlcv_list = response['data']['attributes']['ohlcv_list']
+            return pd.DataFrame(ohlcv_list, columns=config.OHLCV_COLUMNS)
+        except KeyError: # If the response does not have the expected structure
+            raise ValueError(f'Could not parse OHLCV data into a DataFrame. See response below.\n\n{response}')
 
     return response
 
