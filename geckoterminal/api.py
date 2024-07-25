@@ -34,9 +34,10 @@ def get_pools(network, pool_addresses, include=['base_token', 'quote_token', 'de
 
     return client.request(f'/networks/{network}/pools/multi/{",".join(pool_addresses)}', params=params)
 
-def get_top_pools(network, dex=None, include=['base_token', 'quote_token', 'dex']):
+def get_top_pools(network, dex=None, include=['base_token', 'quote_token', 'dex'], page=1):
     params = {
-        'include':','.join(include)
+        'include':','.join(include),
+        'page':page
     }
 
     if dex:
