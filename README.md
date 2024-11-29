@@ -136,6 +136,6 @@ wbtc_weth_ohlcv = geckoterminal.get_pool_ohlcv(
     limit=100, # Default 100, max is 1000
     currency='usd', # One of usd or token
     token='base', # One of base, quote, or a specific token address
-    df=True # Returns a 
+    df=False # Returns a pandas DataFrame if true, raises ValueError if data cannot be converted
 )
 ```
