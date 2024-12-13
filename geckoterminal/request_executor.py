@@ -7,7 +7,7 @@ from . import config
 class RequestExecutor:
     def __init__(
             self,
-            version: Optional[str] = None
+            version: Optional[int] = None
         ):
         self.version = version
 
