@@ -92,7 +92,8 @@ blast_thruster_top_pools = geckoterminal.get_top_pools(
 ```python
 new_pools = geckoterminal.get_new_pools(
     network=None, # If None, returns latest pools from all networks.
-    include=['base_token', 'quote_token', 'dex']
+    include=['base_token', 'quote_token', 'dex'],
+    page=1
 )
 ```
 
